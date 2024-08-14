@@ -2,7 +2,7 @@ import sys
 from llm_api import extract_text_from_pdf, get_response
 from file_loader import PDFLoader
 from txt_splitter import SpliterModel
-
+from vectorstore import create_vector_store
 
 def main():
     # PDF file
@@ -22,6 +22,8 @@ def main():
     # text_splitter
     split_documents = SpliterModel('RecursiveCharacter', docs).split_text()
     
+    # embedding, vectorstore
+    chroma_db = create_vector_store(split_documents)
     
     # 인코딩 문제 -> utf-8
     sys.stdout.reconfigure(encoding='utf-8')

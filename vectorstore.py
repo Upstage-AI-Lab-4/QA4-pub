@@ -1,9 +1,10 @@
 from langchain_upstage import UpstageEmbeddings
 from langchain_chroma import Chroma
+import os
 
 def create_vector_store(documents):
     embeddings = UpstageEmbeddings(
-        api_key="your_api_key_here",
+        api_key= os.getenv("UPSTAGE_API_KEY")
         model="solar-embedding-1-large-passage"
     )
     

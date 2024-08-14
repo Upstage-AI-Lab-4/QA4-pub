@@ -1,5 +1,7 @@
 import sys
 from llm_api import extract_text_from_pdf, get_response
+from file_loader import PDFLoader
+from txt_splitter import SpliterModel
 
 def main():
     # PDF file
@@ -11,6 +13,14 @@ def main():
     # LLM 요청
     summary = get_llm_response(pdf_text)
     """
+    
+    
+    # loader
+    docs = PDFLoader(pdf_path).FileLoader().load()
+    
+    # text_splitter
+    split_documents = SpliterModel('RecursiveCharacter', docs).split_text()
+    
     
     # 인코딩 문제 -> utf-8
     sys.stdout.reconfigure(encoding='utf-8')

@@ -1,5 +1,6 @@
 import sys
 from llm_api import extract_text_from_pdf, get_response
+from vectorstore import create_vector_store
 
 def main():
     # PDF file
@@ -26,6 +27,9 @@ def main():
     # 요약
     print(summary)
     """
+
+    #김효원 추가
+    chroma_db = create_vector_store(splits)
 
 if __name__ == "__main__":
     main()

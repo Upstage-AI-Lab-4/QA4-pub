@@ -21,14 +21,6 @@ def main():
     question = input("PDF 내용에 대해 질문하세요: ")
     answer = get_response(pdf_text, question)
     
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=600, 
-        chunk_overlap=100,
-        length_function=len,
-        is_separator_regex=False
-    )
-    splits = text_splitter.split_documents(pdf_text)
-    chroma_db = create_vector_store(splits)
     
     # 답변 출력
     print("\n답변:")

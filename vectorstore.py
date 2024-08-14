@@ -4,7 +4,7 @@ import os
 
 def create_vector_store(documents):
     embeddings = UpstageEmbeddings(
-        api_key= os.getenv("UPSTAGE_API_KEY")
+        api_key= os.getenv("UPSTAGE_API_KEY"),
         model="solar-embedding-1-large-passage"
     )
     

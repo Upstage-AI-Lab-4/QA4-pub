@@ -3,7 +3,7 @@ from llm_api import extract_text_from_pdf, get_response
 from file_loader import PDFLoader
 from txt_splitter import SpliterModel
 from prompt import PromptQaChat
-from conversational_rag import ConversationalRAGChain
+from conversational_rag import ConversationalRAGChain , ChatLog
 
 
 def main():
@@ -18,11 +18,15 @@ def main():
     """
     
     
+    
     # loader
     docs = PDFLoader(pdf_path).FileLoader()
     
     # text_splitter
     split_documents = SpliterModel('RecursiveCharacter', docs).split_text()
+    
+    
+    
     
     
     
@@ -34,9 +38,13 @@ def main():
     
     # chain
     response = ConversationalRAGChain(rag_chain, question).chain()
-    print(response["answer"])
+    print(response["answer"]) #응답 출력
+    print(ChatLog.logger()) # 로그 출력
     # KeyError('answer')는 langchain오류라고 함
     
+
+
+
 
     # 인코딩 문제 -> utf-8
     sys.stdout.reconfigure(encoding='utf-8')

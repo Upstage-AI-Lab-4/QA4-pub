@@ -3,6 +3,7 @@ import os
 from llm_api import extract_text_from_pdf, LLMHandler
 from file_loader import PDFLoader
 from txt_splitter import SpliterModel
+from vectorstore import create_vector_store
 
 def main():
     
@@ -26,17 +27,20 @@ def main():
     """
     
     # loader
-    docs = PDFLoader(pdf_path).FileLoader().load()
+    docs = PDFLoader(pdf_path).FileLoader()
     
     # text_splitter
     split_documents = SpliterModel('RecursiveCharacter', docs).split_text()
     
+    # embedding, vectorstore
+    chroma_db = create_vector_store(split_documents)
     
     # 인코딩 문제 -> utf-8
     sys.stdout.reconfigure(encoding='utf-8')
     
     question = input("PDF 내용에 대해 질문하세요: ")
     answer = llm_handler.get_response(pdf_text, question)
+    
     
     # 답변 출력
     print("\n답변:")
@@ -46,6 +50,8 @@ def main():
     # 요약
     print(summary)
     """
+
+    
 
 if __name__ == "__main__":
     main()

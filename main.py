@@ -16,7 +16,7 @@ def main():
     
     
     # loader
-    docs = PDFLoader(pdf_path).FileLoader().load()
+    docs = PDFLoader(pdf_path).FileLoader()
     
     # text_splitter
     split_documents = SpliterModel('RecursiveCharacter', docs).split_text()

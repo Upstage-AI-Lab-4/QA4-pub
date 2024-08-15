@@ -5,5 +5,5 @@ class PDFLoader():
         self.path = path
         
     def FileLoader(self):
-        loader = PyMuPDFLoader(self.path)
+        loader = PyMuPDFLoader(self.path).load()
         return loader

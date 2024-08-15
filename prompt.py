@@ -2,6 +2,8 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
 
+# https://python.langchain.com/v0.1/docs/use_cases/question_answering/chat_history/#chain-with-chat-history
+    
 class PromptQaChat:
     def __init__(self, llm, retriever) -> None:
         self.llm = llm

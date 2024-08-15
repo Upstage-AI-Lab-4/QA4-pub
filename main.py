@@ -5,10 +5,6 @@ from txt_splitter import SpliterModel
 from prompt import PromptQaChat
 from conversational_rag import ConversationalRAGChain
 
-### Statefully manage chat history ###
-from langchain_core.chat_history import BaseChatMessageHistory
-from langchain_community.chat_message_histories import ChatMessageHistory
-
 
 def main():
     # PDF file
@@ -33,8 +29,10 @@ def main():
     # Chain with chat history, prompt
     rag_chain = PromptQaChat(llm, retriever).promptChain()
     
-    # QA
+    # Question
     question = input()
+    
+    # chain
     response = ConversationalRAGChain(rag_chain, question).chain()
     print(response["answer"])
     # KeyError('answer')는 langchain오류라고 함

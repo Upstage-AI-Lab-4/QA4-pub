@@ -27,8 +27,6 @@ def summarize_pdf_content(content):
     return f"Summary of the content: {content[:500]}..."
 """
 
-# LLM 설정
-llm = ChatUpstage(api_key=os.getenv("UPSTAGE_API_KEY"))
 """
 tools = [summarize_pdf_content]
 llm_with_tools = llm.bind_tools(tools)
@@ -62,23 +60,23 @@ def get_llm_response(content):
     
 """
 
-def ask_question_about_pdf(pdf_text, question):
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant who knows the content of a PDF document."},
-        {"role": "user", "content": f"Here is some text from a PDF: {pdf_text[:2000]}"},
-        {"role": "user", "content": f"Based on the above context, please answer the following question: {question}"}
-    ]
-    
-    return messages
+class LLMHandler:
+    def __init__(self, api_key):
+        self.llm = ChatUpstage(api_key=api_key)
 
-def call_llm(messages):
+    def ask_question_about_pdf(self, pdf_text, question):
+        messages = [
+            {"role": "system", "content": "You are a helpful assistant who knows the content of a PDF document."},
+            {"role": "user", "content": f"Here is some text from a PDF: {pdf_text[:2000]}"},
+            {"role": "user", "content": f"Based on the above context, please answer the following question: {question}"}
+        ]
+        return messages
 
-    response = llm.invoke(messages)
-    return response.content  # response 에서 text 가져옴
+    def call_llm(self, messages):
+        response = self.llm.invoke(messages)
+        return response.content  # response 에서 text 가져옴
 
-#ask_questions_about_pdf + call_llm / 전체 관리 function
-def get_response(context, question):
-
-    messages = ask_question_about_pdf(context, question)
-    response = call_llm(messages)
-    return response
+    def get_response(self, context, question):
+        messages = self.ask_question_about_pdf(context, question)
+        response = self.call_llm(messages)
+        return response

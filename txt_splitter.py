@@ -7,5 +7,5 @@ class SpliterModel():
         
     def split_text(self):
         # if self.model_name == 'RecursiveCharacter':
-        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1500, chunk_overlap=50).split_documents(self.docs)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200).split_documents(self.docs)
         return text_splitter

@@ -14,9 +14,9 @@
 
 <div align="center">
 
-| **팀장** | **팀원 1** | **팀원 2** | **팀원 3** | **팀원 4** |
-| :------: |  :------: | :------: | :------: | :------: |
-|[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Juha Lee](https://github.com/jl3725) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @hannakhw](https://github.com/hannakhw) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @moon-dotcom](https://github.com/moon-dotcom) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |
+| **팀장** | **팀원 1** | **팀원 2** |
+| :------: |  :------: | :------: |
+|[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Juha Lee](https://github.com/jl3725) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @hannakhw](https://github.com/hannakhw) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @moon-dotcom](https://github.com/moon-dotcom) |
 </div>
 
 <br>

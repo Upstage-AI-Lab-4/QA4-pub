@@ -23,9 +23,9 @@
 
 ## 1. 개발 환경
 
-- 주 언어 : python
+- 주 언어 : Python
 - 버전 및 이슈관리 : 3.11.9
-- 협업 툴 : Github
+- 협업 툴 : Github, Slack, Zoom
 
 <br>
 
@@ -48,7 +48,7 @@
   - 임베딩한 데이터를 Chroma에 로드하고 쿼리합니다. 질문을 하면 Chroma 벡터 스토어에서 유사도 검색을 하고 검색 결과 중 가장 유사한 문서를 출력합니다. 
 
 - PyMuPDFLoader
-  - 랭체인에서 제공하는 패키지로, pdf 파일을 로드하여 테스트 스플리터에 전달한다. 
+  - 랭체인에서 제공하는 패키지로, pdf 파일을 로드하여 테스트 스플리터에 전달합니다. 
 
 
 ### 브랜치전략 
@@ -58,6 +58,7 @@
   - main, master, hyowon 브랜치로 나누어 개발을 하였습니다.
     - **main** 브랜치는 각 팀원의 브랜치를 최종 머지하는 브랜치이자 팀장 Juha Lee의 브랜치 입니다.
     - **master** 브랜치는 팀원 moon-dotcom의 브랜치 입니다.
+    - **chat_log** 및 **retriever** 브랜치는 팀장 Juha Lee의 브랜치 입니다.
     - **hyowon** 브랜치는 팀원 hannakhw의 브랜치 입니다.
   - 개인별 모듈 작업은 팀원별로 각자 가지고 있는 브랜치에서 작업했습니다. 모듈 개발이 끝나면 main 브랜치에 merge하고, merge 후에는 모든 팀원이 함께 pull하여 동기화를 마쳤습니다.
 
@@ -74,8 +75,9 @@
 ├── txt_splitter.py
 ├── vectorstore.py
 ├── retriever.py
-├── prompt.py
-└── conversational_rag.py
+├── prompt.py (chain/ prompt 활용방식)
+└── conversational_rag.py (chain/ prompt 활용방식)
+└── chat_log.py(llm 호출방식)
 ...
 
 ```
@@ -84,11 +86,11 @@
 
 ## 4. 역할 분담
 
-### 팀원 Juha Lee
+### 팀장 Juha Lee
 - **역할**
-    - 프로젝트를 진행하며 맡은 역할 작성
+    - 전체적인 main.py 관리, git Merge, PR request 처리 + llm_api, retriever, chat_log(json 형식)
 - **기능**
-    - 프로젝트를 진행하며 개발한 기능 작성
+    - llm_api로 llm 호출, retriever 작업 및 chat_log 작업 + 전체적인 프로젝트 통합 
 <br>
 
 ### 팀원 hannakhw
@@ -143,8 +145,8 @@ pip install -qU chromadb langchain-chroma
 
 ## 5. 프로젝트 후기
 
-### 팀원 Juha Lee
-프로젝트 후기 작성
+### 팀장 Juha Lee
+전체적인 github PR request 받으면서 충돌 관리를 팀장으로써는 처음이었기 때문에 전체적인 github으로 branch관리 및 전체 팀으로써의 작업 및 통합 과정을 다시 한번 잘 배울 수 있었고 (예전에는 pull, push만 했었음) llm api로 직접 호출하는 방식으로 처음 코드를 작성 및 리트리버, chat_log까지 연결하다가 나중에 팀원들과 chain 방식으로 prompt을 받아서 하는 부분에서 코드 충돌이 조금 있었지만 chain에 대해서 더 잘 알 수 있었고 이 과정을 통해 전체적인 workflow를 더 잘 배울 수 있었다고 생각한다.  
 
 ### 팀원 hannakhw
 처음 해보는 개발(?) 프로젝트라서 긴장도 되고 설레기도 했는데 무사히 마친 것 같아 기쁩니다. 팀원들에게 이것저것 사소한 오류에 관해 질문을 많이 했던 것 같은데 다들 친절하게 답변해주셔서 많은 도움이 됐고, 팀원들이 짠 코드를 보면서 내가 짜본 코드와 비교하면서 다양한 방식으로 구현할 수 있다는 것을 배우게 됐습니다. 

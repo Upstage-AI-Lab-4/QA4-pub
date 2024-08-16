@@ -1,24 +1,18 @@
 from langchain_upstage import ChatUpstage
-from langchain.tools import tool
 import os
 import PyPDF2
 
-#file extract
+# PDF에서 텍스트 추출
 def extract_text_from_pdf(pdf_path):
- 
     with open(pdf_path, 'rb') as file:
         reader = PyPDF2.PdfReader(file)
         text = ''
         for page in range(len(reader.pages)):
             page_text = reader.pages[page].extract_text()
-            
-            page_text = page_text.replace('\n', ' ')
-            page_text = page_text.replace('\r', ' ')
-            
+            page_text = page_text.replace('\n', ' ').replace('\r', ' ')
             text += page_text + ' '
-            
-    text = ' '.join(text.split())
-    return text
+    return ' '.join(text.split())
+
 """
 @tool
 def summarize_pdf_content(content):
@@ -76,7 +70,20 @@ class LLMHandler:
         response = self.llm.invoke(messages)
         return response.content  # response 에서 text 가져옴
 
-    def get_response(self, context, question):
+    def get_response(self, context, question, chat_history=None):
+        if chat_history:
+            # 대화 히스토리가 있으면...
+            formatted_history = "\n".join([f"User: {entry['user']}\nLLM: {entry['llm']}" for entry in chat_history])
+            question = f"{formatted_history}\nUser: {question}"
+
+        #print(f"(디버그) 최종 질문 메시지: {question}")  # 최종 질문 메시지
+
         messages = self.ask_question_about_pdf(context, question)
+        
+        #print(f"[디버깅] LLM에 보낼 메시지 구조: {messages}")  # LLM에 보낼 메시지 구조
+        
         response = self.call_llm(messages)
+        
+        #print(f"[디버깅] LLM으로부터 받은 응답: {response}")  # LLM으로부터 받은 응답
+        
         return response

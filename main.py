@@ -6,6 +6,9 @@ from txt_splitter import SpliterModel
 from vectorstore import create_vector_store
 from retriever import Retriever
 from langchain_upstage import UpstageEmbeddings
+from prompt import PromptQaChat
+from conversational_rag import ConversationalRAGChain , ChatLog
+
 
 def main():
     # API 키 가져오기
@@ -17,14 +20,15 @@ def main():
     
     # LLMHandler 초기화
     llm_handler = LLMHandler(api_key)
-    
+
     # UpstageEmbeddings 초기화
     embeddings = UpstageEmbeddings(
         api_key=api_key,
         model="solar-embedding-1-large-passage"
     )
-    
-    # 인코딩 문제 해결 -> utf-8
+
+
+    # 인코딩 문제 -> utf-8
     sys.stdout.reconfigure(encoding='utf-8')
     
     # PDF 파일 경로 설정
@@ -58,8 +62,22 @@ def main():
     # 리트리버 초기화 및 embeddings 전달
     retriever = Retriever(vector_store, embeddings)
     
+    
+    # Chain with chat history, prompt
+    rag_chain = PromptQaChat(llm_handler, retriever).promptChain()
+    
+    
     # 질문 입력
     question = input("PDF 내용에 대해 질문하세요: ")
+    
+    
+    # chain
+    response = ConversationalRAGChain(rag_chain, question).chain()
+    print(response["answer"]) #응답 출력
+    print(ChatLog.logger()) # 로그 출력
+    # KeyError('answer')는 langchain오류라고 함
+    
+
     
     # 리트리버 >> 관련 문서 검색
     search_results = retriever.retrieve(question)

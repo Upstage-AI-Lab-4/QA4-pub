@@ -101,9 +101,11 @@
 
 ### 팀원 hannakhw
 - **역할**
-    - 프로젝트를 진행하며 맡은 역할 작성
+    - 코드 작성 및 코드 실행 테스트를 함께 함
+    - 오류 보고 및 피드백
 - **기능**
-    - 프로젝트를 진행하며 개발한 기능 작성
+    - QA엔진이 참조할 문서와 쿼리를 임베딩할 임베딩 모델과 임베딩 데이터를 벡터스토어에 저장.
+    - 임베딩 모델은 UpstageEmbeddings를, 벡터스토어는 Chroma 사용. 
 <br>
 
 ### 팀원 moon-dotcom
@@ -125,33 +127,24 @@
 <br>
 
 ### 작업 관리
-<예시>
 
-- 아래와 같은 오류가 발생했습니다.
+- chroma 모듈이 없다고 실행이 되지 않는 에러가 발생했습니다.
 
-```python
-C:\Users\yong\AppData\Local\Programs\Python\Python311\Lib\site-packages\langchain_core\_api\deprecation.py:117: LangChainDeprecationWarning: The class `langchain_community.llms.openai.OpenAI` was deprecated in langchain-community 0.0.10 and will be removed in 0.2.0. An updated version of the class exists in the langchain-openai package and should be used instead. To use it run `pip install -U langchain-openai` and import as `from langchain_openai import OpenAI`.
-  warn_deprecated(
-```
 
 ### 설명
 
-- langchain_community.llms.openai.OpenAI는 langchain-community 0.0.10에서 deprecate되었으며 0.2.0에서 제거될 예정입니다.
-- 업데이트된 버전의 클래스가 langchain-openai 패키지에 있으며 이것을 사용해야 합니다.
+- LangChain에서 Chroma를 사용하기 위해서는 두 가지 패키지(chromadb, langchain-chroma)가 필요합니다.
+- 둘 중 하나라도 설치되지 않으면 의존성 문제로 실행되지 않습니다. 
 
 
 ### 해결
 
-- 명령 프롬프트(또는 터미널)에서 다음 명령을 실행해 langchain-openai 패키지를 설치합니다.
+- 명령 프롬프트에서 아래 명령어를 실행해 두 패키지 모두 설치했습니다. 
 
 ```python
-pip install -U langchain-openai
+pip install -qU chromadb langchain-chroma
 ```
 
-- 아래와 같이 import문 변경하면 해결됩니다.
-```python
-from langchain_openai import OpenAI
-```
 
 
 <br>

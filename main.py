@@ -1,17 +1,20 @@
 import sys
 import os
-from llm_api import extract_text_from_pdf, LLMHandler
+# from llm_api import LLMHandler
+from llm import LlmModel
 from file_loader import PDFLoader
 from txt_splitter import SpliterModel
 from vectorstore import create_vector_store
 from retriever import Retriever
 from langchain_upstage import UpstageEmbeddings
 from prompt import PromptQaChat
-from conversational_rag import ConversationalRAGChain , ChatLog
-
+from conversational_rag import ConversationalRAGChain
+from chat_log import ChatLog  # ChatLog
 
 def main():
     # API 키 가져오기
+    
+    os.environ["UPSTAGE_API_KEY"] = 'UPSTAGE_API_KEY'
     api_key = os.getenv("UPSTAGE_API_KEY")
     
     if not api_key:
@@ -19,7 +22,7 @@ def main():
         return
     
     # LLMHandler 초기화
-    llm_handler = LLMHandler(api_key)
+    llm = LlmModel(api_key).UpstageModel()
 
     # UpstageEmbeddings 초기화
     embeddings = UpstageEmbeddings(
@@ -34,7 +37,7 @@ def main():
     # PDF 파일 경로 설정
     base_dir = os.path.dirname(os.path.abspath(__file__))
     pdf_path = os.path.join(base_dir, "data", "올림픽예선시리즈 스포츠클라이밍_ 필수 정보.pdf")
-
+    
     # 경로 확인
     if not os.path.exists(pdf_path):
         print(f"파일을 찾을 수 없습니다: {pdf_path}")
@@ -60,39 +63,37 @@ def main():
         return
     
     # 리트리버 초기화 및 embeddings 전달
-    retriever = Retriever(vector_store, embeddings)
-    
-    
+    retriever = Retriever(vector_store).retrieve()
+
     # Chain with chat history, prompt
-    rag_chain = PromptQaChat(llm_handler, retriever).promptChain()
-    
-    
-    # 질문 입력
-    question = input("PDF 내용에 대해 질문하세요: ")
-    
-    
-    # chain
-    response = ConversationalRAGChain(rag_chain, question).chain()
-    print(response["answer"]) #응답 출력
-    print(ChatLog.logger()) # 로그 출력
-    # KeyError('answer')는 langchain오류라고 함
+    rag_chain = PromptQaChat(llm, retriever).promptChain()
     
 
-    
-    # 리트리버 >> 관련 문서 검색
-    search_results = retriever.retrieve(question)
-    
-    if not search_results:
-        print("관련된 문서를 찾을 수 없습니다.")
-        return
-    
-    # 검색된 결과를 바탕으로 LLM에 질문하고 답변 생성
-    context = search_results[0].page_content  # 첫 번째 검색 결과 사용
-    answer = llm_handler.get_response(context, question)
-    
-    # 답변 출력
-    print("\n답변:")
-    print(answer)
+    while True:
+    # for i in range(2):
+        # 질문 입력
+        question = input("PDF 내용에 대해 질문하세요 (종료하려면 'exit' 입력): ")
+        if question.lower() == "exit":
+            print("종료합니다.")
+            break
 
+        # 검색 및 답변 생성
+        response = ConversationalRAGChain(rag_chain, question).chain()
+        answer = str(response["answer"])
+        
+        if answer is None:
+            print("[에러] LLM으로부터 응답을 받지 못했습니다.")
+            continue
+        
+        # LLM 응답 출력
+        print("\n답변:")
+        print(answer)    
+        
+         # 채팅 로그에 추가
+        ChatLog.add_to_log( question, answer)
+         # 필요시 로그를 파일에 저장
+        ChatLog.save_log_to_file('chat_history.json')
+        
+        
 if __name__ == "__main__":
     main()

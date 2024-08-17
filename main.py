@@ -90,9 +90,10 @@ def main():
         print(answer)    
         
          # 채팅 로그에 추가
-        ChatLog.add_to_log( question, answer)
+        log = ChatLog()
+        log.add_to_log( question, answer)
          # 필요시 로그를 파일에 저장
-        ChatLog.save_log_to_file('chat_history.json')
+        log.save_log_to_file('chat_history.json')
         
         
 if __name__ == "__main__":

@@ -11,9 +11,9 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
         store[session_id] = ChatMessageHistory()
     return store[session_id]
 
-class ChatLog():
-    def logger():
-        return store[temp_session_id]
+# class ChatLog():
+#     def logger():
+#         return store[temp_session_id]
     
     
 class ConversationalRAGChain():

@@ -14,65 +14,70 @@
 
 <div align="center">
 
-| **팀장** | **팀원 1** | **팀원 2** | **팀원 3** | **팀원 4** |
-| :------: |  :------: | :------: | :------: | :------: |
-|[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Github](https://github.com/) |
+| **팀장** | **팀원 1** | **팀원 2** |
+| :------: |  :------: | :------: |
+|[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @Juha Lee](https://github.com/jl3725) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @hannakhw](https://github.com/hannakhw) |[<img src="https://avatars.githubusercontent.com/u/156163982?v=4" height=150 width=150> <br/> @moon-dotcom](https://github.com/moon-dotcom) |
 </div>
 
 <br>
 
 ## 1. 개발 환경
 
-- 주 언어 : python
-- 버전 및 이슈관리 : 
-- 협업 툴 :
+- 주 언어 : Python
+- 버전 및 이슈관리 : 3.11.9
+- 협업 툴 : Github, Slack, Zoom
 
 <br>
 
 ## 2. 채택한 개발 기술과 브랜치 전략
-<예시>
 
-### Pandas, NumPy
+### LangChain
+- LangChain
+  - LLM(대형 언어 모델)을 사용하여 애플리케이션 생성을 단순화하도록 설계된 프레임워크. 프롬프트를 인식하고 관련된 내용을 벡터스토어에서 찾아 LLM에 전달하여 전문적인 답변을 할 수 있게 만듭니다. 
 
-- Pandas
-  - 기업의 배당 데이터를 Pandas DataFrame으로 불러온 후, 각 기업의 배당 수익률을 계산하고, 연도별로 그룹화하여 평균 배당 수익률을 계산합니다.
-  - 필터링 조건을 적용하여 특정 기업의 배당 데이터를 분석하거나, 원하는 형태로 데이터를 변형할 수 있습니다.  
+- OS
+  -  사용자의 환경 변수로 지정된 API_key를 가져오고, 외부에 노출되지 않도록 보안성을 강화합니다.
 
-- Numpy
-  - 벡터화 연산을 사용하여, 3000여개 데이터를 효율적으로 처리합니다.
+- ChatUpstage(LLM)
+  - Upstage의 solar-embedding-1-large-passage 모델을 사용하여 질의응답 모델을 구성합니다. 
 
-### Beautifulsoup, Selenium
+- RecursiveCharacterTextSplitter
+  - 일반적인 텍스트에 범용적으로 사용할 수 있는 텍스트 분할기로, 문자 목록을 매개변수로 받아 동작합니다. 
 
-- Beautifulsoup
-  - 네이버 증권 페이지에서 배당률, 주가 등의 정보를 포함한 HTML 테이블에서 데이터를 추출합니다.
+- Chroma
+  - 임베딩한 데이터를 Chroma에 로드하고 쿼리합니다. 질문을 하면 Chroma 벡터 스토어에서 유사도 검색을 하고 검색 결과 중 가장 유사한 문서를 출력합니다. 
 
-- Selenium
-  - 웹 페이지에서 동적 콘텐츠를 로드합니다.
-  - 특정 종목의 배당 데이터를 얻기 위해 종목 검색 후, 관련 페이지로 이동해야 할 때, 이 과정을 자동화합니다. 
+- PyMuPDFLoader
+  - 랭체인에서 제공하는 패키지로, pdf 파일을 로드하여 테스트 스플리터에 전달합니다. 
+
 
 ### 브랜치전략 
     
 - 브랜치 전략
-  - Git-flow 전략을 기반으로 main, develop 브랜치와 feature 보조 브랜치를 운용했습니다.
-  - main, develop, Feat 브랜치로 나누어 개발을 하였습니다.
-    - **main** 브랜치는 배포 단계에서만 사용하는 브랜치입니다.
-    - **develop** 브랜치는 개발 단계에서 git-flow의 master 역할을 하는 브랜치입니다.
-    - **Feat** 브랜치는 기능 단위로 독립적인 개발 환경을 위하여 사용하고 merge 후 각 브랜치를 삭제해주었습니다.
-
+  - Git-flow 전략을 기반으로 팀장의 main 브랜치와 각 팀원의 보조 브랜치를 운용했습니다.
+  - main, master, hyowon 브랜치로 나누어 개발을 하였습니다.
+    - **main** 브랜치는 각 팀원의 브랜치를 최종 머지하는 브랜치이자 팀장 Juha Lee의 브랜치 입니다.
+    - **master** 브랜치는 팀원 moon-dotcom의 브랜치 입니다.
+    - **chat_log** 및 **retriever** 브랜치는 팀장 Juha Lee의 브랜치 입니다.
+    - **hyowon** 브랜치는 팀원 hannakhw의 브랜치 입니다.
+  - 개인별 모듈 작업은 팀원별로 각자 가지고 있는 브랜치에서 작업했습니다. 모듈 개발이 끝나면 main 브랜치에 merge하고, merge 후에는 모든 팀원이 함께 pull하여 동기화를 마쳤습니다.
 
 <br>
 
 ## 3. 프로젝트 구조
 ```
 ├── README.md
-├── .gitignore
-└── src
-     ├── App.py
-     ├── index.py
-     ├── api
-     │     └── GoogleAPI.jsx
-     └── styles
-           └── Globalstyled.jsx
+├── data
+     ├── 올림픽예선시리즈 스포츠클라이밍_ 필수 정보.pdf
+├── main.py
+├── llm_api.py
+├── file_loader.py
+├── txt_splitter.py
+├── vectorstore.py
+├── retriever.py
+├── prompt.py (chain/ prompt 활용방식)
+└── conversational_rag.py (chain/ prompt 활용방식)
+└── chat_log.py(llm 호출방식)
 ...
 
 ```
@@ -81,74 +86,72 @@
 
 ## 4. 역할 분담
 
-### 팀원 1
+### 팀장 Juha Lee
 - **역할**
-    - 프로젝트를 진행하며 맡은 역할 작성
+    - 전체적인 main.py 관리, git Merge, PR request 처리 + llm_api, retriever, chat_log(json 형식)
 - **기능**
-    - 프로젝트를 진행하며 개발한 기능 작성
+    - llm_api로 llm 호출, retriever 작업 및 chat_log 작업 + 전체적인 프로젝트 통합 
 <br>
 
-### 팀원 2
+### 팀원 hannakhw
 - **역할**
-    - 프로젝트를 진행하며 맡은 역할 작성
+    - 코드 작성 및 코드 실행 테스트를 함께 함
+    - 오류 보고 및 피드백
 - **기능**
-    - 프로젝트를 진행하며 개발한 기능 작성
+    - QA엔진이 참조할 문서와 쿼리를 임베딩할 임베딩 모델과 임베딩 데이터를 벡터스토어에 저장.
+    - 임베딩 모델은 UpstageEmbeddings를, 벡터스토어는 Chroma 사용. 
 <br>
 
-### 팀원 3
+### 팀원 moon-dotcom
 - **역할**
-    - 프로젝트를 진행하며 맡은 역할 작성
+    - langchain pipline에서 문서를 로드, 스플릿하여 vectorstore에 전달
 - **기능**
-    - 프로젝트를 진행하며 개발한 기능 작성
+    - QA할 문서를 로드
+    - RecursiveCharacterTextSplitter을 사용하여 chunk_size=1500, chunk_overlap=50으로 스플릿
 <br>
 
 ## 5. 개발 기간 및 작업 관리
 
 ### 개발 기간
 - 전체 개발 기간 : 2024-08-12 ~ 2024-08-19
-- 기능 구현 : 2024-08-00 ~ 2024-08-00
-- 그외 기간 작성
+- 계획 수립 및 역할 분담 : 2024-08-13
+- 기능 구현 : 2024-08-13 ~ 2024-08-16
+- 오류 테스트 및 발표 준비 : 2024-08-16
   
 <br>
 
 ### 작업 관리
-<예시>
 
-- 아래와 같은 오류가 발생했습니다.
+- chroma 모듈이 없다고 실행이 되지 않는 에러가 발생했습니다.
 
-```python
-C:\Users\yong\AppData\Local\Programs\Python\Python311\Lib\site-packages\langchain_core\_api\deprecation.py:117: LangChainDeprecationWarning: The class `langchain_community.llms.openai.OpenAI` was deprecated in langchain-community 0.0.10 and will be removed in 0.2.0. An updated version of the class exists in the langchain-openai package and should be used instead. To use it run `pip install -U langchain-openai` and import as `from langchain_openai import OpenAI`.
-  warn_deprecated(
-```
 
 ### 설명
 
-- langchain_community.llms.openai.OpenAI는 langchain-community 0.0.10에서 deprecate되었으며 0.2.0에서 제거될 예정입니다.
-- 업데이트된 버전의 클래스가 langchain-openai 패키지에 있으며 이것을 사용해야 합니다.
+- LangChain에서 Chroma를 사용하기 위해서는 두 가지 패키지(chromadb, langchain-chroma)가 필요합니다.
+- 둘 중 하나라도 설치되지 않으면 의존성 문제로 실행되지 않습니다. 
 
 
 ### 해결
 
-- 명령 프롬프트(또는 터미널)에서 다음 명령을 실행해 langchain-openai 패키지를 설치합니다.
+- 명령 프롬프트에서 아래 명령어를 실행해 두 패키지 모두 설치했습니다. 
 
 ```python
-pip install -U langchain-openai
+pip install -qU chromadb langchain-chroma
 ```
 
-- 아래와 같이 import문 변경하면 해결됩니다.
-```python
-from langchain_openai import OpenAI
-```
 
 
 <br>
 
 ## 5. 프로젝트 후기
 
-### 팀원 1
-프로젝트 후기 작성
+### 팀장 Juha Lee
+전체적인 github PR request 받으면서 충돌 관리를 팀장으로써는 처음이었기 때문에 전체적인 github으로 branch관리 및 전체 팀으로써의 작업 및 통합 과정을 다시 한번 잘 배울 수 있었고 (예전에는 pull, push만 했었음) llm api로 직접 호출하는 방식으로 처음 코드를 작성 및 리트리버, chat_log까지 연결하다가 나중에 팀원들과 chain 방식으로 prompt을 받아서 하는 부분에서 코드 충돌이 조금 있었지만 chain에 대해서 더 잘 알 수 있었고 이 과정을 통해 전체적인 workflow를 더 잘 배울 수 있었다고 생각한다.  
 
-### 팀원 2
-프로젝트 후기 작성
+### 팀원 hannakhw
+처음 해보는 개발(?) 프로젝트라서 긴장도 되고 설레기도 했는데 무사히 마친 것 같아 기쁩니다. 팀원들에게 이것저것 사소한 오류에 관해 질문을 많이 했던 것 같은데 다들 친절하게 답변해주셔서 많은 도움이 됐고, 팀원들이 짠 코드를 보면서 내가 짜본 코드와 비교하면서 다양한 방식으로 구현할 수 있다는 것을 배우게 됐습니다. 
+
+### 팀원 moon-dotcom
+랭체인에 대해 잘 모르는 상태에서 시작한 프로젝트라 최종 결과에 대한 가늠이 잘 되지 않아 계획 수립에 어려움이 있었다. 하지만 팀원들과 모르는 부분과 틀린 부분에 대해 상의 하며 맞춰 나갔고 기본 기능에 충실한 QA rag를 개발 할 수 있었다.
 <br>
 
